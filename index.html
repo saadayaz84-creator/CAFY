@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAFY — Content Creation on Autopilot</title>
+  <meta name="description" content="CAFY helps marketing teams automate content creation. Scale your content, cut costs, and run on autopilot." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#080808',
+            elevated: '#111111',
+            floating: '#1a1a1a',
+            'border-s': '#222222',
+            cyan: '#00d4ff',
+            purple: '#7b61ff',
+            'text-p': '#f5f5f5',
+            'text-s': '#888888',
+            'text-m': '#444444',
+          },
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base ────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #080808;
+      color: #f5f5f5;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    /* ── Noise Texture Overlay ──────────────────── */
+    .noise::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── Glow Utilities ─────────────────────────── */
+    .glow-cyan { box-shadow: 0 0 20px rgba(0,212,255,0.08), 0 0 60px rgba(0,212,255,0.04); }
+    .glow-cyan-strong { box-shadow: 0 0 30px rgba(0,212,255,0.15), 0 0 80px rgba(0,212,255,0.06); }
+    .glow-purple { box-shadow: 0 0 20px rgba(123,97,255,0.1), 0 0 60px rgba(123,97,255,0.04); }
+
+    /* ── Card Shadows (layered, color-tinted) ──── */
+    .card-shadow {
+      box-shadow: 0 1px 3px rgba(0,212,255,0.03), 0 4px 16px rgba(0,0,0,0.3), 0 12px 48px rgba(0,0,0,0.25);
+    }
+    .card-shadow-elevated {
+      box-shadow: 0 1px 3px rgba(0,212,255,0.05), 0 8px 32px rgba(0,0,0,0.4), 0 24px 64px rgba(0,0,0,0.3);
+    }
+
+    /* ── Hero Gradient Background ───────────────── */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,212,255,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 70% 20%, rgba(123,97,255,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,212,255,0.04) 0%, transparent 50%),
+        #080808;
+    }
+
+    /* ── Animated Orbs ──────────────────────────── */
+    .hero-orbs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); will-change: transform; }
+    .orb-1 { width: 500px; height: 500px; background: rgba(0,212,255,0.07); top: -10%; left: 30%; animation: drift1 20s ease-in-out infinite; }
+    .orb-2 { width: 400px; height: 400px; background: rgba(123,97,255,0.06); top: 20%; right: -5%; animation: drift2 25s ease-in-out infinite; }
+    .orb-3 { width: 300px; height: 300px; background: rgba(0,212,255,0.05); bottom: 0%; left: -5%; animation: drift3 22s ease-in-out infinite; }
+    @keyframes drift1 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(40px,30px) scale(1.05); } 66% { transform: translate(-20px,-20px) scale(0.97); } }
+    @keyframes drift2 { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-30px,20px) scale(1.03); } 66% { transform: translate(20px,-30px) scale(0.98); } }
+    @keyframes drift3 { 0%, 100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-20px) scale(1.04); } }
+
+    /* ── Animated Grid ──────────────────────────── */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ── Button Glow Pulse ──────────────────────── */
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(0,212,255,0.2), 0 0 40px rgba(0,212,255,0.1); }
+      50% { box-shadow: 0 0 30px rgba(0,212,255,0.3), 0 0 60px rgba(0,212,255,0.15); }
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #00d4ff, #00b4e0);
+      color: #080808 !important;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.01em;
+      border: none;
+      cursor: pointer;
+      animation: glowPulse 3s ease-in-out infinite;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px) scale(1.02); }
+    .btn-primary:active { transform: translateY(0) scale(0.98); opacity: 0.9; }
+    .btn-primary:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+
+    .btn-secondary {
+      background: transparent;
+      color: #f5f5f5 !important;
+      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.01em;
+      border: 1px solid #333;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+    }
+    .btn-secondary:hover { transform: translateY(-2px); border-color: #555; color: #ffffff !important; }
+    .btn-secondary:active { transform: translateY(0); opacity: 0.85; }
+    .btn-secondary:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+
+    /* ── Problem Cards ──────────────────────────── */
+    .problem-card {
+      background: #111111; border: 1px solid #222222; border-radius: 16px; padding: 32px;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,212,255,0.03), 0 4px 16px rgba(0,0,0,0.3), 0 12px 48px rgba(0,0,0,0.25);
+    }
+    .problem-card:hover {
+      transform: translateY(-4px); border-color: rgba(0,212,255,0.2);
+      box-shadow: 0 1px 3px rgba(0,212,255,0.06), 0 8px 32px rgba(0,0,0,0.4), 0 0 40px rgba(0,212,255,0.06);
+    }
+
+    /* ── Steps Connector ────────────────────────── */
+    .step-connector {
+      position: absolute; top: 36px; left: calc(33.33% + 20px); right: calc(33.33% + 20px); height: 2px;
+      background: linear-gradient(90deg, rgba(0,212,255,0.3), rgba(123,97,255,0.3), rgba(0,212,255,0.3));
+    }
+
+    /* ── Calculator Inputs ──────────────────────── */
+    .calc-input {
+      background: #1a1a1a; border: 1px solid #222222; border-radius: 12px;
+      color: #f5f5f5; font-family: 'Inter', sans-serif; font-size: 18px;
+      padding: 14px 16px; width: 100%; outline: none;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .calc-input:focus { border-color: rgba(0,212,255,0.4); box-shadow: 0 0 0 3px rgba(0,212,255,0.08), 0 2px 8px rgba(0,0,0,0.2); }
+    .calc-input:hover { border-color: #333; }
+
+    /* ── Range Slider ───────────────────────────── */
+    input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: linear-gradient(90deg, #00d4ff, #7b61ff); border-radius: 3px; outline: none; cursor: pointer; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; background: #f5f5f5; border-radius: 50%; border: 3px solid #00d4ff; cursor: pointer; box-shadow: 0 0 10px rgba(0,212,255,0.3); transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; background: #f5f5f5; border-radius: 50%; border: 3px solid #00d4ff; cursor: pointer; box-shadow: 0 0 10px rgba(0,212,255,0.3); }
+
+    /* ── Output Glow Cards ──────────────────────── */
+    .output-card {
+      background: #111111; border: 1px solid #222222; border-radius: 16px; padding: 28px; text-align: center;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,212,255,0.04), 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .output-card:hover { transform: translateY(-4px); }
+    .output-card .value {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 42px; font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1;
+      background: linear-gradient(135deg, #00d4ff, #7b61ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* ── Service Cards ──────────────────────────── */
+    .service-card {
+      background: #111111; border: 1px solid #222222; border-radius: 20px; padding: 36px;
+      display: flex; flex-direction: column;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-card.featured {
+      border-color: rgba(0,212,255,0.25);
+      background: linear-gradient(180deg, rgba(0,212,255,0.03) 0%, #111111 40%);
+      box-shadow: 0 1px 3px rgba(0,212,255,0.06), 0 8px 32px rgba(0,0,0,0.4), 0 0 60px rgba(0,212,255,0.06);
+    }
+
+    /* ── Fade-in on Scroll ──────────────────────── */
+    section { position: relative; }
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Footer Section BG ──────────────────────── */
+    .footer-bg {
+      background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(0,212,255,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 30% 80%, rgba(123,97,255,0.04) 0%, transparent 50%), #080808;
+    }
+
+    /* ── Section Divider ────────────────────────── */
+    .section-divider { height: 1px; background: linear-gradient(90deg, transparent, #222222, transparent); margin: 0 auto; max-width: 600px; }
+
+    /* ── Sticky Nav ─────────────────────────────── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,8,8,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #222222;
+    }
+    .nav-link {
+      color: rgba(245,245,245,0.6) !important; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 500;
+      text-decoration: none; transition: color 0.2s ease, opacity 0.2s ease;
+    }
+    .nav-link:hover { color: #00d4ff !important; }
+    .nav-link:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+    .nav-cta-btn {
+      border: 1px solid #00d4ff; background: transparent; color: #00d4ff !important;
+      border-radius: 8px; padding: 8px 20px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 600;
+      text-decoration: none; cursor: pointer; white-space: nowrap;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+    }
+    .nav-cta-btn:hover { transform: translateY(-1px); background: rgba(0,212,255,0.06); }
+    .nav-cta-btn:active { transform: translateY(0); }
+    .nav-cta-btn:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+
+    /* ── Mobile hamburger ───────────────────────── */
+    .hamburger-btn { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger-btn span { display: block; width: 22px; height: 2px; background: #f5f5f5; margin: 5px 0; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(8,8,8,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #222222; padding: 20px 24px;
+    }
+    .mobile-menu.open { display: flex; flex-direction: column; gap: 16px; }
+    .mobile-menu .nav-link { font-size: 16px; }
+    @media (max-width: 767px) {
+      .desktop-nav { display: none !important; }
+      .hamburger-btn { display: block; }
+    }
+    @media (min-width: 768px) {
+      .hamburger-btn { display: none !important; }
+      .mobile-menu { display: none !important; }
+    }
+
+    /* ── Audit Form Fields ──────────────────────── */
+    .audit-field {
+      width: 100%; background: rgba(245,245,245,0.04); border: 1px solid #222222;
+      border-radius: 8px; padding: 12px 16px; color: #f5f5f5; font-size: 14px;
+      font-family: 'Inter', sans-serif; outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .audit-field:focus { border-color: #00d4ff; box-shadow: 0 0 0 3px rgba(0,212,255,0.1); }
+    .audit-field::placeholder { color: #555; }
+    select.audit-field { cursor: pointer; }
+    select.audit-field option { background: #111111; color: #f5f5f5; }
+
+    /* ── Audit Success Steps ────────────────────── */
+    .audit-step { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .step-dot {
+      width: 18px; height: 18px; border-radius: 50%; border: 2px solid #333; flex-shrink: 0;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-dot.step-complete { background: #00d4ff; border-color: #00d4ff; }
+    .step-dot.step-complete::after { content: "✓"; font-size: 11px; color: #000; }
+
+    /* ── Tool Cards ─────────────────────────────── */
+    .tool-card {
+      background: rgba(245,245,245,0.02); border: 1px solid #222222; border-radius: 12px;
+      padding: 24px 16px; text-align: center; cursor: pointer;
+      transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+    .tool-card:hover {
+      border-color: rgba(0,212,255,0.4); background: rgba(0,212,255,0.04);
+      box-shadow: 0 0 24px rgba(0,212,255,0.08);
+    }
+    .tool-card img { filter: grayscale(80%) opacity(0.7); transition: filter 0.25s ease; }
+    .tool-card:hover img { filter: grayscale(0%) opacity(1); }
+    .tool-name { font-size: 13px; color: #f5f5f5; font-weight: 600; margin-top: 12px; }
+    .tool-category {
+      display: inline-block; font-size: 10px; color: #00d4ff; background: rgba(0,212,255,0.1);
+      border-radius: 20px; padding: 3px 10px; margin-top: 6px;
+    }
+    .tool-desc {
+      font-size: 12px; color: #888888; line-height: 1.5; margin-top: 10px;
+      opacity: 0; max-height: 0; overflow: hidden;
+      transition: opacity 0.2s ease, max-height 0.3s ease;
+    }
+    .tool-card:hover .tool-desc { opacity: 1; max-height: 120px; }
+    .tool-fallback {
+      width: 36px; height: 36px; border-radius: 8px; margin: 0 auto; display: flex;
+      align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+      color: #00d4ff; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.15);
+    }
+
+    /* ── Footer link ────────────────────────────── */
+    .footer-nav-link {
+      color: rgba(245,245,245,0.35) !important; font-size: 13px; text-decoration: none;
+      font-family: 'Inter', sans-serif; transition: color 0.2s ease;
+    }
+    .footer-nav-link:hover { color: #00d4ff !important; }
+    .footer-nav-link:focus-visible { outline: 2px solid #00d4ff; outline-offset: 3px; }
+
+    /* ── Powered-by logos ────────────────────────── */
+    .powered-logo {
+      height: 18px; filter: grayscale(100%) opacity(0.25);
+      transition: filter 0.2s ease, opacity 0.2s ease;
+    }
+    .powered-logo:hover { filter: grayscale(0%) opacity(0.65); }
+
+    /* ── Audit Checkmark SVG ────────────────────── */
+    .audit-checkmark { width: 64px; height: 64px; margin: 0 auto; }
+    .audit-checkmark circle { fill: none; stroke: #00d4ff; stroke-width: 2; stroke-dasharray: 166; stroke-dashoffset: 166; animation: checkStroke 0.6s ease forwards; }
+    .audit-checkmark path { fill: none; stroke: #00d4ff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 48; stroke-dashoffset: 48; animation: checkStroke 0.4s 0.4s ease forwards; }
+    @keyframes checkStroke { to { stroke-dashoffset: 0; } }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION — Sticky
+       ═══════════════════════════════════════════════ -->
+  <nav class="site-nav">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between" style="height:60px;">
+      <!-- Logo -->
+      <a href="#" class="font-heading font-extrabold text-lg tracking-wider no-underline" style="color:#00d4ff;">CAFY</a>
+
+      <!-- Desktop Nav Links -->
+      <div class="desktop-nav flex items-center gap-8">
+        <a href="#free-audit" class="nav-link">Free Audit</a>
+        <a href="#calculator" class="nav-link">ROI Calculator</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#our-stack" class="nav-link">Our Stack</a>
+        <a href="#free-audit" class="nav-cta-btn">Get Free Audit</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#free-audit" class="nav-link">Free Audit</a>
+      <a href="#calculator" class="nav-link">ROI Calculator</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#our-stack" class="nav-link">Our Stack</a>
+      <a href="#free-audit" class="nav-cta-btn" style="text-align:center;display:block;">Get Free Audit</a>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════
+       SECTION 1 — HERO
+       ═══════════════════════════════════════════════ -->
+  <section class="hero-bg noise relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+    <div class="hero-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-grid"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <!-- Logo / Brand -->
+      <div class="mb-8 fade-up">
+        <span class="inline-block font-heading font-extrabold text-lg tracking-widest uppercase" style="color:#00d4ff;">CAFY</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="font-heading font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 fade-up" style="color:#f5f5f5;">
+        Scale Your Content.<br />
+        Cut Your Costs.<br />
+        <span style="background:linear-gradient(135deg,#00d4ff,#7b61ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Run on Autopilot.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="font-body text-lg md:text-xl max-w-2xl mx-auto mb-10 fade-up" style="color:#888888;line-height:1.7;">
+        CAFY builds AI-powered content systems that write, schedule, and publish for you — so your brand stays visible without burning out your team.
+      </p>
+
+      <!-- CTAs — Primary + Secondary row -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-up">
+        <a href="#calculator" class="btn-primary rounded-xl px-8 py-4 text-base inline-block no-underline">
+          Calculate Your ROI
+        </a>
+        <a href="#services" class="btn-secondary rounded-xl px-8 py-4 text-base inline-block no-underline">
+          Work With Me
+        </a>
+      </div>
+
+      <!-- NEW: Third CTA — full-width cyan -->
+      <div class="fade-up" style="margin-top:12px;">
+        <a href="#free-audit" class="inline-block w-full sm:w-auto no-underline font-heading font-bold text-center"
+           style="background:#00d4ff;color:#000000;height:52px;line-height:52px;padding:0 32px;border-radius:12px;font-size:15px;transition:transform 0.2s ease,background 0.2s ease;"
+           onmouseover="this.style.background='#00b8d9';this.style.transform='translateY(-1px)'"
+           onmouseout="this.style.background='#00d4ff';this.style.transform='translateY(0)'">
+          Get Your Free Content Audit →
+        </a>
+      </div>
+
+      <!-- NEW: Trust Lines -->
+      <div class="fade-up" style="margin-top:10px;">
+        <p style="font-size:12px;color:rgba(245,245,245,0.3);text-align:center;margin:0;">
+          Free audit delivered to your inbox in under 10 minutes. No calls required.
+        </p>
+        <p style="font-size:13px;color:rgba(245,245,245,0.4);text-align:center;margin-top:6px;">
+          Helping creators and brands scale content without large teams.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom fade -->
+    <div class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style="background:linear-gradient(to top, #080808, transparent);"></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       SECTION 2 — PROBLEM
+       ═══════════════════════════════════════════════ -->
+  <section class="relative px-6 py-28 md:py-36" id="problems">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 fade-up">
+        <p class="font-heading font-semibold text-sm uppercase tracking-widest mb-4" style="color:#00d4ff;">The Problem</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl" style="color:#f5f5f5;">Sound Familiar?</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div class="problem-card fade-up">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-xl mb-3" style="color:#f5f5f5;">15+ Hours Every Week</h3>
+          <p class="font-body text-base" style="color:#888888;line-height:1.7;">You're spending entire days writing scripts, captions, and social posts. That's time you'll never get back — time that should go toward growing your business.</p>
+        </div>
+        <div class="problem-card fade-up">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background:rgba(123,97,255,0.08);border:1px solid rgba(123,97,255,0.15);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7b61ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-xl mb-3" style="color:#f5f5f5;">Expensive &amp; Inconsistent</h3>
+          <p class="font-body text-base" style="color:#888888;line-height:1.7;">Freelancers charge premium rates, miss deadlines, and deliver work that doesn't match your brand voice. You end up rewriting half of it anyway.</p>
+        </div>
+        <div class="problem-card fade-up">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-xl mb-3" style="color:#f5f5f5;">Falling Behind</h3>
+          <p class="font-body text-base" style="color:#888888;line-height:1.7;">You know you should be posting more, but production takes so long that you're barely keeping up. Competitors who post daily are eating your reach.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       SECTION 3 — HOW IT WORKS
+       ═══════════════════════════════════════════════ -->
+  <section class="relative px-6 py-28 md:py-36" id="process">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-20 fade-up">
+        <p class="font-heading font-semibold text-sm uppercase tracking-widest mb-4" style="color:#7b61ff;">The Process</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl" style="color:#f5f5f5;">From Chaos to Autopilot in 3&nbsp;Steps</h2>
+      </div>
+      <div class="relative grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+        <div class="step-connector hidden md:block" aria-hidden="true"></div>
+        <div class="text-center fade-up">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 font-heading font-extrabold text-2xl" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);color:#00d4ff;">1</div>
+          <h3 class="font-heading font-bold text-2xl mb-4" style="color:#f5f5f5;">Audit</h3>
+          <p class="font-body text-base max-w-sm mx-auto" style="color:#888888;line-height:1.7;">We analyze your current content workflow from start to finish. Every bottleneck, every time sink, every manual step — we find them all.</p>
+        </div>
+        <div class="text-center fade-up">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 font-heading font-extrabold text-2xl" style="background:rgba(123,97,255,0.08);border:1px solid rgba(123,97,255,0.15);color:#7b61ff;">2</div>
+          <h3 class="font-heading font-bold text-2xl mb-4" style="color:#f5f5f5;">Build</h3>
+          <p class="font-body text-base max-w-sm mx-auto" style="color:#888888;line-height:1.7;">We design and build a custom AI-powered content system tailored to your brand voice, your platforms, and your goals. No generic templates.</p>
+        </div>
+        <div class="text-center fade-up">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 font-heading font-extrabold text-2xl" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);color:#00d4ff;">3</div>
+          <h3 class="font-heading font-bold text-2xl mb-4" style="color:#f5f5f5;">Scale</h3>
+          <p class="font-body text-base max-w-sm mx-auto" style="color:#888888;line-height:1.7;">You publish more content, spend less time producing it, and redirect your energy toward strategy and growth. Your system runs on autopilot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       SECTION 5 — FREE CONTENT AUDIT (LEAD CAPTURE)
+       ═══════════════════════════════════════════════ -->
+  <section class="relative noise px-6 py-20 md:py-32" id="free-audit" style="background:radial-gradient(ellipse 80% 60% at 50% 20%, rgba(0,212,255,0.05) 0%, transparent 60%), #080808;">
+    <div class="relative z-10 max-w-[1200px] mx-auto">
+      <!-- Section Header -->
+      <div class="text-center mb-14 fade-up">
+        <p class="font-heading font-semibold uppercase mb-4" style="font-size:12px;letter-spacing:0.15em;color:#00d4ff;">FREE CONTENT AUDIT</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl mb-5" style="color:#f5f5f5;">Find Out Exactly What's Killing Your Content&nbsp;Growth</h2>
+        <p class="font-body mx-auto" style="font-size:16px;color:#888888;max-width:600px;line-height:1.7;">
+          Drop your LinkedIn URL below. Our AI analyzes your content, identifies your exact pain points, and sends you a personalized report — in under 10 minutes.
+        </p>
+      </div>
+
+      <!-- Two-column grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 fade-up">
+
+        <!-- LEFT COLUMN — Benefits -->
+        <div>
+          <h3 class="font-heading font-semibold mb-6" style="font-size:20px;color:#f5f5f5;">What's Inside Your Free Audit</h3>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
+              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">Your 3 biggest content bottlenecks — backed by data from your actual posts</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
+              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">The content gaps your competitors are exploiting right now</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
+              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">Why your engagement doesn't match your reach — and the exact fix</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
+              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">A 30-day content upscale roadmap tailored to your niche</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:12px;">
+              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
+              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">What your fully automated content system would look like</span>
+            </div>
+          </div>
+
+          <!-- Sample Report Preview Card (hidden on mobile) -->
+          <div class="hidden md:block" style="background:rgba(0,212,255,0.03);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-top:32px;position:relative;">
+            <p style="font-size:10px;color:#00d4ff;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px 0;">SAMPLE REPORT PREVIEW</p>
+            <p class="font-heading font-semibold" style="font-size:14px;color:#f5f5f5;margin:0 0 12px 0;">CAFY CONTENT AUDIT</p>
+            <div style="filter:blur(4px);color:#555;font-size:12px;line-height:1.8;">
+              <p style="margin:0;">Content frequency analysis: 2.3 posts/week avg...</p>
+              <p style="margin:0;">Engagement rate benchmark: 1.8% vs industry 3.2%...</p>
+              <p style="margin:0;">Recommended topics: leadership, case studies...</p>
+            </div>
+            <div style="margin-top:14px;">
+              <p class="font-body" style="font-size:11px;color:#888888;margin:0 0 6px 0;">Content Gap Score</p>
+              <div style="height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden;">
+                <div style="width:70%;height:100%;background:linear-gradient(90deg,#00d4ff,#00b8d9);border-radius:4px;"></div>
+              </div>
+            </div>
+            <span style="position:absolute;top:16px;right:16px;font-size:10px;color:#00d4ff;background:rgba(0,212,255,0.1);padding:3px 10px;border-radius:20px;">Example Only</span>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN — The Form -->
+        <div>
+          <div id="audit-form-container" style="background:#111111;border:1px solid rgba(0,212,255,0.2);border-radius:16px;padding:36px;box-shadow:0 0 60px rgba(0,212,255,0.05);">
+            <form id="audit-form" novalidate>
+              <div style="display:flex;flex-direction:column;gap:20px;">
+                <!-- Name -->
+                <div>
+                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Full Name or Brand Name</label>
+                  <input type="text" name="audit-name" class="audit-field" placeholder="e.g. John Smith or Acme Agency" required />
+                </div>
+                <!-- LinkedIn -->
+                <div>
+                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">LinkedIn Profile or Page URL</label>
+                  <input type="url" name="audit-linkedin" class="audit-field" placeholder="https://linkedin.com/in/yourprofile" required />
+                  <p class="font-body" style="font-size:11px;color:#444444;margin-top:5px;">We only read public post data. We never store credentials.</p>
+                </div>
+                <!-- Niche -->
+                <div>
+                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Your Industry / Niche</label>
+                  <select name="audit-niche" class="audit-field" required>
+                    <option value="" disabled selected>Select your niche...</option>
+                    <option>Personal Brand / Creator</option>
+                    <option>Marketing &amp; Advertising Agency</option>
+                    <option>SaaS / Tech Company</option>
+                    <option>E-commerce / Product Brand</option>
+                    <option>Consulting / Coaching</option>
+                    <option>Real Estate</option>
+                    <option>Finance / Fintech</option>
+                    <option>Healthcare / Wellness</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <!-- Goal -->
+                <div>
+                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Primary Content Goal</label>
+                  <select name="audit-goal" class="audit-field" required>
+                    <option value="" disabled selected>Select a goal...</option>
+                    <option>Grow my audience and followers</option>
+                    <option>Generate more leads and clients</option>
+                    <option>Build authority in my niche</option>
+                    <option>Increase engagement on my posts</option>
+                    <option>Scale content without spending more time</option>
+                    <option>All of the above</option>
+                  </select>
+                </div>
+                <!-- Frustration -->
+                <div>
+                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Biggest Content Frustration Right Now</label>
+                  <textarea name="audit-frustration" class="audit-field" rows="4" required placeholder="e.g. I post consistently but nothing grows. Or: I never have time to create content every week..."></textarea>
+                </div>
+                <!-- Email -->
+                <div>
+                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Email Address</label>
+                  <input type="email" name="audit-email" class="audit-field" placeholder="your@email.com" required />
+                  <p class="font-body" style="font-size:11px;color:#444444;margin-top:5px;">Your report arrives within 10 minutes. No spam, ever.</p>
+                </div>
+              </div>
+              <!-- Submit -->
+              <button type="submit" class="font-heading font-bold w-full" style="height:52px;background:#00d4ff;color:#000000;font-size:15px;border-radius:8px;border:none;cursor:pointer;margin-top:28px;transition:background 0.2s ease,transform 0.2s ease;"
+                onmouseover="this.style.background='#00b8d9';this.style.transform='translateY(-1px)'"
+                onmouseout="this.style.background='#00d4ff';this.style.transform='translateY(0)'"
+                onfocus="this.style.outline='2px solid #00d4ff';this.style.outlineOffset='3px'"
+                onblur="this.style.outline='none'">
+                Analyze My Content → Get Free Report
+              </button>
+            </form>
+          </div>
+
+          <!-- Success State (hidden by default) -->
+          <div id="audit-success" style="display:none;text-align:center;padding:20px;">
+            <svg class="audit-checkmark" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="25"/>
+              <path d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+            <h3 class="font-heading" style="font-size:22px;color:#f5f5f5;font-weight:600;margin-top:20px;">Your audit is being generated!</h3>
+            <p class="font-body" style="font-size:15px;color:#888888;margin-top:12px;line-height:1.6;">
+              We're analyzing <strong id="audit-success-name" style="color:#f5f5f5;"></strong>'s content right now.<br>
+              Your personalized report will land in <strong id="audit-success-email" style="color:#00d4ff;"></strong> within the next 10 minutes.
+            </p>
+            <div style="margin-top:28px;text-align:left;max-width:320px;margin-inline:auto;">
+              <div class="audit-step"><span class="step-dot"></span><span class="step-text font-body" style="color:#444444;font-size:14px;">Fetching your content data</span></div>
+              <div class="audit-step"><span class="step-dot"></span><span class="step-text font-body" style="color:#444444;font-size:14px;">Analyzing posting patterns</span></div>
+              <div class="audit-step"><span class="step-dot"></span><span class="step-text font-body" style="color:#444444;font-size:14px;">Identifying content gaps</span></div>
+              <div class="audit-step"><span class="step-dot"></span><span class="step-text font-body" style="color:#444444;font-size:14px;">Building your 30-day roadmap</span></div>
+            </div>
+            <div id="audit-final-msg" style="display:none;margin-top:24px;">
+              <p class="font-body" style="font-size:14px;color:#888888;">Check your inbox! While you wait:</p>
+              <a href="#services" style="display:inline-block;margin-top:12px;padding:10px 24px;border:1px solid #00d4ff;color:#00d4ff;border-radius:8px;font-size:14px;text-decoration:none;transition:transform 0.2s ease,opacity 0.2s ease;"
+                 onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
+                See How We Build Systems →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust signals -->
+      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 fade-up" style="margin-top:48px;">
+        <span class="font-body" style="font-size:13px;color:rgba(245,245,245,0.35);">🔒 No login required</span>
+        <span class="font-body" style="font-size:13px;color:rgba(245,245,245,0.35);">⚡ Report ready in 10 min</span>
+        <span class="font-body" style="font-size:13px;color:rgba(245,245,245,0.35);">✉️ Delivered to your inbox</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       SECTION 6 — ROI CALCULATOR
+       ═══════════════════════════════════════════════ -->
+  <section class="relative noise px-6 py-28 md:py-36" id="calculator" style="background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,212,255,0.05) 0%, transparent 60%), #080808;">
+    <div class="relative z-10 max-w-5xl mx-auto">
+      <div class="text-center mb-16 fade-up">
+        <p class="font-heading font-semibold text-sm uppercase tracking-widest mb-4" style="color:#00d4ff;">ROI Calculator</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl mb-4" style="color:#f5f5f5;">See What Your Content Workflow Is&nbsp;Costing&nbsp;You</h2>
+        <p class="font-body text-lg max-w-xl mx-auto" style="color:#888888;line-height:1.7;">Fill in your numbers. See the truth.</p>
+      </div>
+      <div class="rounded-2xl p-8 md:p-12 fade-up" style="background:#111111;border:1px solid #222222;box-shadow:0 1px 3px rgba(0,212,255,0.04),0 12px 48px rgba(0,0,0,0.35);">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div>
+            <label class="block font-heading font-semibold text-sm mb-3" style="color:#f5f5f5;">Hours on content per week</label>
+            <div class="flex items-center justify-between mb-3">
+              <input type="range" id="calc-hours" min="1" max="60" value="15" />
+              <span id="calc-hours-display" class="ml-4 font-heading font-bold text-2xl min-w-[3ch] text-right" style="color:#00d4ff;">15</span>
+            </div>
+            <p class="font-body text-xs" style="color:#444444;">1 – 60 hours</p>
+          </div>
+          <div>
+            <label class="block font-heading font-semibold text-sm mb-3" style="color:#f5f5f5;">Posts published per week</label>
+            <input type="number" id="calc-posts" class="calc-input" value="5" min="1" max="100" placeholder="5" />
+            <p class="font-body text-xs mt-2" style="color:#444444;">Across all platforms</p>
+          </div>
+          <div>
+            <label class="block font-heading font-semibold text-sm mb-3" style="color:#f5f5f5;">Your hourly rate (USD)</label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 font-body text-lg" style="color:#444444;">$</span>
+              <input type="number" id="calc-rate" class="calc-input" style="padding-left:32px;" value="50" min="1" max="1000" placeholder="50" />
+            </div>
+            <p class="font-body text-xs mt-2" style="color:#444444;">Or equivalent cost per hour</p>
+          </div>
+        </div>
+        <div class="h-px mb-12" style="background:linear-gradient(90deg, transparent, #222222, transparent);"></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="output-card">
+            <p class="font-body text-sm mb-3" style="color:#888888;">Hours Wasted Monthly</p>
+            <div class="value" id="out-hours">60</div>
+            <p class="font-body text-xs mt-2" style="color:#444444;">hours / month</p>
+          </div>
+          <div class="output-card">
+            <p class="font-body text-sm mb-3" style="color:#888888;">Money Lost Monthly</p>
+            <div class="value" id="out-money">$3,000</div>
+            <p class="font-body text-xs mt-2" style="color:#444444;">wasted on manual work</p>
+          </div>
+          <div class="output-card" style="border-color:rgba(0,212,255,0.15);">
+            <p class="font-body text-sm mb-3" style="color:#00d4ff;">Estimated Monthly Savings</p>
+            <div class="value" id="out-savings">$1,950</div>
+            <p class="font-body text-xs mt-2" style="color:#444444;">with automation</p>
+          </div>
+          <div class="output-card" style="border-color:rgba(123,97,255,0.15);">
+            <p class="font-body text-sm mb-3" style="color:#7b61ff;">Extra Posts Possible</p>
+            <div class="value" id="out-posts">+13</div>
+            <p class="font-body text-xs mt-2" style="color:#444444;">posts / month</p>
+          </div>
+        </div>
+        <!-- UPDATED CTA text -->
+        <div class="text-center mt-12">
+          <a href="#contact" class="btn-primary rounded-xl px-8 py-4 text-base inline-block no-underline">
+            Get These Results — Let's Talk
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       SECTION 7 — THE STACK
+       ═══════════════════════════════════════════════ -->
+  <section class="relative px-6 py-28 md:py-36" id="our-stack">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-14 fade-up">
+        <p class="font-heading font-semibold uppercase mb-4" style="font-size:12px;letter-spacing:0.15em;color:#00d4ff;">THE STACK</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl mb-5" style="color:#f5f5f5;">The AI Tools Powering Your System</h2>
+        <p class="font-body mx-auto" style="font-size:16px;color:#888888;max-width:600px;line-height:1.7;">We don't use one tool. We combine the best AI in the world into one seamless pipeline built around your brand.</p>
+      </div>
+
+      <!-- Tool Grid: 2 col mobile, 3 col tablet, 5 col desktop -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 fade-up" id="tools-grid">
+        <!-- Cards inserted by JS below -->
+      </div>
+
+      <p class="font-body text-center fade-up" style="font-size:14px;color:rgba(245,245,245,0.3);margin-top:40px;">
+        Every tool is selected based on your niche, platform, and goals.<br>You don't need to know how any of this works — that's our job.
+      </p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       SECTION 8 — SERVICES
+       ═══════════════════════════════════════════════ -->
+  <section class="relative px-6 py-28 md:py-36" id="services">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-4 fade-up">
+        <p class="font-heading font-semibold text-sm uppercase tracking-widest mb-4" style="color:#7b61ff;">Services</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl" style="color:#f5f5f5;">How We Work Together</h2>
+      </div>
+      <!-- NEW: Journey subtext -->
+      <p class="font-body text-center fade-up" style="font-size:15px;color:#888888;margin-bottom:40px;">
+        Most clients start with an Audit, move into a Build, then stay on retainer. Each step builds on the last.
+      </p>
+
+      <!-- Cards with arrow connectors -->
+      <div class="flex flex-col md:flex-row items-stretch gap-6 md:gap-0">
+        <!-- Tier 1: Content Audit -->
+        <div class="service-card fade-up flex-1">
+          <div class="mb-6">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background:rgba(123,97,255,0.08);border:1px solid rgba(123,97,255,0.12);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7b61ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-2xl mb-2" style="color:#f5f5f5;">Content Audit</h3>
+            <p class="font-body text-base mb-6" style="color:#888888;line-height:1.7;">One-time deep dive into your content workflow with clear recommendations on where AI can save you the most time.</p>
+          </div>
+          <ul class="font-body text-sm space-y-3 mb-8 flex-1" style="color:#888888;">
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full workflow analysis</li>
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>AI tool recommendations</li>
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prioritized action plan</li>
+            <!-- NEW: 4th bullet -->
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>AI-powered niche content research — trending topics, content gaps &amp; competitor angles</li>
+          </ul>
+          <a href="#contact" class="btn-secondary rounded-xl px-6 py-3 text-sm text-center inline-block no-underline w-full">Let's Talk</a>
+        </div>
+
+        <!-- Arrow 1 (desktop only) -->
+        <div class="hidden md:flex items-center justify-center px-3" style="color:rgba(0,212,255,0.4);font-size:24px;" aria-hidden="true">→</div>
+
+        <!-- Tier 2: Automation Build (Featured) -->
+        <div class="service-card featured fade-up flex-1">
+          <div class="mb-6">
+            <span class="inline-block font-heading font-semibold text-xs uppercase tracking-wider rounded-full px-3 py-1 mb-4" style="background:rgba(0,212,255,0.1);color:#00d4ff;border:1px solid rgba(0,212,255,0.2);">⭐ Most Popular</span>
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.12);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-2xl mb-2" style="color:#f5f5f5;">Automation Build</h3>
+            <p class="font-body text-base mb-6" style="color:#888888;line-height:1.7;">A full custom AI content system, built from scratch for your brand. Write, schedule, and publish — hands-free.</p>
+          </div>
+          <ul class="font-body text-sm space-y-3 mb-8 flex-1" style="color:#888888;">
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom AI writing workflows</li>
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Automated scheduling &amp; publishing</li>
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Brand voice calibration</li>
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Full onboarding &amp; training</li>
+          </ul>
+          <a href="#contact" class="btn-primary rounded-xl px-6 py-3 text-sm text-center inline-block no-underline w-full" style="animation:none;box-shadow:0 0 20px rgba(0,212,255,0.15);">Let's Talk</a>
+        </div>
+
+        <!-- Arrow 2 (desktop only) -->
+        <div class="hidden md:flex items-center justify-center px-3" style="color:rgba(0,212,255,0.4);font-size:24px;" aria-hidden="true">→</div>
+
+        <!-- Tier 3: Scale Retainer -->
+        <div class="service-card fade-up flex-1">
+          <div class="mb-6">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background:rgba(123,97,255,0.08);border:1px solid rgba(123,97,255,0.12);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7b61ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-2xl mb-2" style="color:#f5f5f5;">Scale Retainer</h3>
+            <p class="font-body text-base mb-6" style="color:#888888;line-height:1.7;">Ongoing monthly management of your content automation system. We optimize, update, and keep everything running smooth.</p>
+          </div>
+          <ul class="font-body text-sm space-y-3 mb-8 flex-1" style="color:#888888;">
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Monthly performance reviews</li>
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>System optimization &amp; updates</li>
+            <li class="flex items-start gap-3"><svg class="mt-1 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Priority support</li>
+          </ul>
+          <a href="#contact" class="btn-secondary rounded-xl px-6 py-3 text-sm text-center inline-block no-underline w-full">Let's Talk</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       SECTION 9 — FOOTER CTA
+       ═══════════════════════════════════════════════ -->
+  <section class="footer-bg noise relative px-6 py-28 md:py-36" id="contact">
+    <div class="relative z-10 max-w-3xl mx-auto text-center">
+      <div class="fade-up">
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl mb-6" style="color:#f5f5f5;">Ready to Automate Your&nbsp;Content?</h2>
+        <p class="font-body text-lg" style="color:#888888;line-height:1.7;">No agencies. No large teams. Just smart systems.</p>
+        <!-- NEW: Second subline -->
+        <p class="font-body" style="font-size:14px;color:rgba(245,245,245,0.35);margin-top:4px;">Or start with a free audit — no commitment, no calls needed.</p>
+
+        <div style="margin-top:32px;">
+          <a href="https://www.linkedin.com/in/muhammadsaad-contentautomation/" target="_blank" rel="noopener noreferrer"
+            class="btn-primary rounded-xl px-10 py-4 text-base inline-block no-underline">Message Me on LinkedIn</a>
+        </div>
+        <!-- NEW: Second button -->
+        <div style="margin-top:12px;">
+          <a href="#free-audit" class="inline-block no-underline" style="background:transparent;border:1px solid #00d4ff;color:#00d4ff;border-radius:8px;padding:12px 28px;font-size:14px;font-family:'Inter',sans-serif;font-weight:600;transition:transform 0.2s ease,opacity 0.2s ease;"
+             onmouseover="this.style.transform='translateY(-1px)';this.style.background='rgba(0,212,255,0.06)'"
+             onmouseout="this.style.transform='translateY(0)';this.style.background='transparent'">
+            Get Free Content Audit
+          </a>
+        </div>
+      </div>
+
+      <!-- Brand Footer -->
+      <div class="mt-20 pt-8 fade-up" style="border-top:1px solid #1a1a1a;">
+        <!-- NEW: Nav links row -->
+        <div class="flex flex-wrap items-center justify-center gap-8 mb-5">
+          <a href="#free-audit" class="footer-nav-link">Free Audit</a>
+          <a href="#calculator" class="footer-nav-link">ROI Calculator</a>
+          <a href="#services" class="footer-nav-link">Services</a>
+          <a href="#our-stack" class="footer-nav-link">Our Stack</a>
+        </div>
+
+        <!-- NEW: Powered-by tools strip -->
+        <div class="flex flex-wrap items-center justify-center gap-5 mb-5">
+          <span class="font-body" style="font-size:11px;color:#444444;">Powered by</span>
+          <img src="https://n8n.io/favicon.ico" alt="n8n" class="powered-logo" onerror="this.style.display='none'"/>
+          <img src="https://www.heygen.com/favicon.ico" alt="HeyGen" class="powered-logo" onerror="this.style.display='none'"/>
+          <img src="https://elevenlabs.io/favicon.ico" alt="ElevenLabs" class="powered-logo" onerror="this.style.display='none'"/>
+          <img src="https://www.anthropic.com/favicon.ico" alt="Claude AI" class="powered-logo" onerror="this.style.display='none'"/>
+          <img src="https://www.freepik.com/favicon.ico" alt="Freepik AI" class="powered-logo" onerror="this.style.display='none'"/>
+        </div>
+
+        <p class="font-heading font-bold text-lg mb-1" style="color:#f5f5f5;">CAFY</p>
+        <p class="font-body text-sm mb-4" style="color:#444444;">Content Creation on Autopilot</p>
+        <p class="font-body text-xs" style="color:#333333;">© 2026 CAFY. All rights reserved.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       JAVASCRIPT
+       ═══════════════════════════════════════════════ -->
+  <script>
+    // ── ROI Calculator ──────────────────────────────
+    (function () {
+      const hoursSlider = document.getElementById('calc-hours');
+      const hoursDisplay = document.getElementById('calc-hours-display');
+      const postsInput = document.getElementById('calc-posts');
+      const rateInput = document.getElementById('calc-rate');
+      const outHours = document.getElementById('out-hours');
+      const outMoney = document.getElementById('out-money');
+      const outSavings = document.getElementById('out-savings');
+      const outPosts = document.getElementById('out-posts');
+
+      function formatCurrency(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+      function calculate() {
+        const hours = parseInt(hoursSlider.value) || 0;
+        const posts = parseInt(postsInput.value) || 0;
+        const rate = parseFloat(rateInput.value) || 0;
+        const hoursWasted = hours * 4;
+        const moneyLost = hoursWasted * rate;
+        const savings = moneyLost * 0.65;
+        const hoursPerPost = posts > 0 ? hours / posts : 0;
+        const savedHours = hoursWasted * 0.65;
+        const extraPosts = hoursPerPost > 0 ? Math.round(savedHours / hoursPerPost) : 0;
+        hoursDisplay.textContent = hours;
+        outHours.textContent = hoursWasted;
+        outMoney.textContent = formatCurrency(moneyLost);
+        outSavings.textContent = formatCurrency(savings);
+        outPosts.textContent = '+' + extraPosts;
+      }
+      hoursSlider.addEventListener('input', calculate);
+      postsInput.addEventListener('input', calculate);
+      rateInput.addEventListener('input', calculate);
+      calculate();
+    })();
+
+
+    // ── Free Audit Form ─────────────────────────────
+    (function () {
+      const auditForm = document.getElementById('audit-form');
+      const auditFormContainer = document.getElementById('audit-form-container');
+      const auditSuccess = document.getElementById('audit-success');
+      const N8N_WEBHOOK_URL = "";
+
+      if (!auditForm) return;
+
+      auditForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const submitBtn = auditForm.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Analyzing your content...";
+        submitBtn.style.background = "#00b8d9";
+
+        const payload = {
+          name: auditForm.querySelector('[name="audit-name"]').value,
+          linkedin_url: auditForm.querySelector('[name="audit-linkedin"]').value,
+          niche: auditForm.querySelector('[name="audit-niche"]').value,
+          content_goal: auditForm.querySelector('[name="audit-goal"]').value,
+          frustration: auditForm.querySelector('[name="audit-frustration"]').value,
+          email: auditForm.querySelector('[name="audit-email"]').value,
+          submitted_at: new Date().toISOString(),
+          source: "cafy_website_free_audit"
+        };
+
+        try {
+          if (N8N_WEBHOOK_URL) {
+            await fetch(N8N_WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+          }
+        } catch (err) { console.error("Webhook error:", err); }
+
+        auditFormContainer.style.display = "none";
+        auditSuccess.style.display = "block";
+
+        // Update dynamic text
+        document.getElementById('audit-success-name').textContent = payload.name;
+        document.getElementById('audit-success-email').textContent = payload.email;
+
+        // Animate steps
+        const steps = document.querySelectorAll('.audit-step');
+        const delays = [0, 2500, 5000, 7500];
+        steps.forEach((step, index) => {
+          setTimeout(() => {
+            step.querySelector('.step-dot').classList.add('step-complete');
+            step.querySelector('.step-text').style.color = "#f5f5f5";
+          }, delays[index]);
+        });
+        setTimeout(() => { document.getElementById('audit-final-msg').style.display = "block"; }, 9000);
+      });
+    })();
+
+
+    // ── The Stack — Render Tool Cards ────────────────
+    (function () {
+      const tools = [
+        { name: "n8n", category: "Automation", logo: "https://n8n.io/favicon.ico", abbr: "n8n", desc: "The backbone of every system we build. Connects all tools — when content is approved, n8n triggers writing, image generation, scheduling, and publishing automatically." },
+        { name: "Make", category: "Automation", logo: "https://www.make.com/favicon.ico", abbr: "MK", desc: "Visual workflow automation between apps. We use Make to build multi-step content pipelines that run without any manual triggers." },
+        { name: "Freepik AI", category: "Image AI", logo: "https://www.freepik.com/favicon.ico", abbr: "FP", desc: "On-brand visuals at scale. Thumbnails, social graphics, and branded imagery generated automatically — no design team needed." },
+        { name: "Higgsfield AI", category: "Video AI", logo: "https://higgsfield.ai/favicon.ico", abbr: "HF", desc: "Cinematic AI video from images and scripts. Produces high-quality video ads and social clips that look like full production shoots." },
+        { name: "Kling AI", category: "Video AI", logo: "https://klingai.com/favicon.ico", abbr: "KL", desc: "Realistic motion video from text or image prompts. Powers short-form content for Reels, TikTok, and YouTube Shorts at scale." },
+        { name: "HeyGen", category: "Video AI", logo: "https://www.heygen.com/favicon.ico", abbr: "HG", desc: "AI avatar videos with realistic lip-sync. Talking-head explainers and demos — without cameras or studios." },
+        { name: "Pika Labs", category: "Video AI", logo: "https://pika.art/favicon.ico", abbr: "PK", desc: "Turns text and images into dynamic short video clips. Repurposes blog posts and tweets into scroll-stopping content in minutes." },
+        { name: "ElevenLabs", category: "Voice AI", logo: "https://elevenlabs.io/favicon.ico", abbr: "EL", desc: "Ultra-realistic AI voiceovers in any language. Professional narration for videos, podcasts, and reels — no recording studio required." },
+        { name: "Claude AI", category: "Writing AI", logo: "https://www.anthropic.com/favicon.ico", abbr: "CL", desc: "Long-form writing, brand voice calibration, and content planning. Posts, scripts, and captions that sound like your brand — not a robot." },
+        { name: "ChatGPT", category: "Writing AI", logo: "https://openai.com/favicon.ico", abbr: "GP", desc: "Rapid ideation and bulk content generation. The fast creative layer for high-volume output and content repurposing." },
+        { name: "Publer", category: "Publishing", logo: "https://publer.io/favicon.ico", abbr: "PB", desc: "Multi-platform auto-publishing across LinkedIn, Instagram, Twitter, and more. Posts go live at optimal times without manual effort." },
+        { name: "Canva AI", category: "Design AI", logo: "https://www.canva.com/favicon.ico", abbr: "CA", desc: "AI-assisted graphic design at scale. Auto-generates branded post templates and resizes content for every platform automatically." }
+      ];
+
+      const grid = document.getElementById('tools-grid');
+      if (!grid) return;
+
+      tools.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'tool-card';
+        card.innerHTML = `
+          <img src="${t.logo}" alt="${t.name}" width="36" height="36" style="object-fit:contain;margin:auto;display:block;"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="tool-fallback" style="display:none;">${t.abbr}</div>
+          <p class="tool-name">${t.name}</p>
+          <span class="tool-category">${t.category}</span>
+          <p class="tool-desc">${t.desc}</p>
+        `;
+        grid.appendChild(card);
+      });
+    })();
+
+
+    // ── Scroll Fade-In ──────────────────────────────
+    (function () {
+      const els = document.querySelectorAll('.fade-up');
+      // Immediately reveal elements already in viewport on load
+      els.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('visible');
+      });
+      // Observe the rest for scroll
+      const observer = new IntersectionObserver(
+        (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+      els.forEach((el) => { if (!el.classList.contains('visible')) observer.observe(el); });
+    })();
+
+
+    // ── Smooth Scroll for Anchor Links ──────────────
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Close mobile menu if open
+          const mm = document.getElementById('mobile-menu');
+          const hb = document.getElementById('hamburger-btn');
+          if (mm) mm.classList.remove('open');
+          if (hb) hb.classList.remove('open');
+        }
+      });
+    });
+
+
+    // ── Mobile Hamburger Toggle ─────────────────────
+    (function () {
+      const btn = document.getElementById('hamburger-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', function () {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+    })();
+  </script>
+</body>
+</html>
