@@ -373,11 +373,11 @@
 
       <!-- Desktop Nav Links -->
       <div class="desktop-nav flex items-center gap-8">
-        <a href="#free-audit" class="nav-link">Free Audit</a>
+        <a href="https://cafy-audit-app.vercel.app/audit" class="nav-link">Free Audit</a>
         <a href="#calculator" class="nav-link">ROI Calculator</a>
         <a href="#services" class="nav-link">Services</a>
         <a href="#our-stack" class="nav-link">Our Stack</a>
-        <a href="#free-audit" class="nav-cta-btn">Get Free Audit</a>
+        <a href="https://cafy-audit-app.vercel.app/audit" class="nav-cta-btn">Get Free Audit</a>
       </div>
 
       <!-- Mobile Hamburger -->
@@ -387,11 +387,11 @@
     </div>
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobile-menu">
-      <a href="#free-audit" class="nav-link">Free Audit</a>
+      <a href="https://cafy-audit-app.vercel.app/audit" class="nav-link">Free Audit</a>
       <a href="#calculator" class="nav-link">ROI Calculator</a>
       <a href="#services" class="nav-link">Services</a>
       <a href="#our-stack" class="nav-link">Our Stack</a>
-      <a href="#free-audit" class="nav-cta-btn" style="text-align:center;display:block;">Get Free Audit</a>
+      <a href="https://cafy-audit-app.vercel.app/audit" class="nav-cta-btn" style="text-align:center;display:block;">Get Free Audit</a>
     </div>
   </nav>
 
@@ -437,7 +437,7 @@
 
       <!-- NEW: Third CTA — full-width cyan -->
       <div class="fade-up" style="margin-top:12px;">
-        <a href="#free-audit" class="inline-block w-full sm:w-auto no-underline font-heading font-bold text-center"
+        <a href="https://cafy-audit-app.vercel.app/audit" class="inline-block w-full sm:w-auto no-underline font-heading font-bold text-center"
            style="background:#00d4ff;color:#000000;height:52px;line-height:52px;padding:0 32px;border-radius:12px;font-size:15px;transition:transform 0.2s ease,background 0.2s ease;"
            onmouseover="this.style.background='#00b8d9';this.style.transform='translateY(-1px)'"
            onmouseout="this.style.background='#00d4ff';this.style.transform='translateY(0)'">
@@ -889,7 +889,7 @@
         </div>
         <!-- NEW: Second button -->
         <div style="margin-top:12px;">
-          <a href="#free-audit" class="inline-block no-underline" style="background:transparent;border:1px solid #00d4ff;color:#00d4ff;border-radius:8px;padding:12px 28px;font-size:14px;font-family:'Inter',sans-serif;font-weight:600;transition:transform 0.2s ease,opacity 0.2s ease;"
+          <a href="https://cafy-audit-app.vercel.app/audit" class="inline-block no-underline" style="background:transparent;border:1px solid #00d4ff;color:#00d4ff;border-radius:8px;padding:12px 28px;font-size:14px;font-family:'Inter',sans-serif;font-weight:600;transition:transform 0.2s ease,opacity 0.2s ease;"
              onmouseover="this.style.transform='translateY(-1px)';this.style.background='rgba(0,212,255,0.06)'"
              onmouseout="this.style.transform='translateY(0)';this.style.background='transparent'">
             Get Free Content Audit
@@ -901,7 +901,7 @@
       <div class="mt-20 pt-8 fade-up" style="border-top:1px solid #1a1a1a;">
         <!-- NEW: Nav links row -->
         <div class="flex flex-wrap items-center justify-center gap-8 mb-5">
-          <a href="#free-audit" class="footer-nav-link">Free Audit</a>
+          <a href="https://cafy-audit-app.vercel.app/audit" class="footer-nav-link">Free Audit</a>
           <a href="#calculator" class="footer-nav-link">ROI Calculator</a>
           <a href="#services" class="footer-nav-link">Services</a>
           <a href="#our-stack" class="footer-nav-link">Our Stack</a>
@@ -970,7 +970,7 @@
       const auditForm = document.getElementById('audit-form');
       const auditFormContainer = document.getElementById('audit-form-container');
       const auditSuccess = document.getElementById('audit-success');
-      const N8N_WEBHOOK_URL = "";
+      const N8N_WEBHOOK_URL = "https://saadix.app.n8n.cloud/webhook/cafy-audit";
 
       if (!auditForm) return;
 
@@ -983,13 +983,13 @@
 
         const payload = {
           name: auditForm.querySelector('[name="audit-name"]').value,
-          linkedin_url: auditForm.querySelector('[name="audit-linkedin"]').value,
+          profile_url: auditForm.querySelector('[name="audit-linkedin"]').value,
+          platform: "linkedin",
           niche: auditForm.querySelector('[name="audit-niche"]').value,
           content_goal: auditForm.querySelector('[name="audit-goal"]').value,
           frustration: auditForm.querySelector('[name="audit-frustration"]').value,
           email: auditForm.querySelector('[name="audit-email"]').value,
-          submitted_at: new Date().toISOString(),
-          source: "cafy_website_free_audit"
+          submitted_at: new Date().toISOString()
         };
 
         try {
