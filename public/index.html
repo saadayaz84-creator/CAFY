@@ -288,27 +288,7 @@
       .mobile-menu { display: none !important; }
     }
 
-    /* ── Audit Form Fields ──────────────────────── */
-    .audit-field {
-      width: 100%; background: rgba(245,245,245,0.04); border: 1px solid #222222;
-      border-radius: 8px; padding: 12px 16px; color: #f5f5f5; font-size: 14px;
-      font-family: 'Inter', sans-serif; outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-    .audit-field:focus { border-color: #00d4ff; box-shadow: 0 0 0 3px rgba(0,212,255,0.1); }
-    .audit-field::placeholder { color: #555; }
-    select.audit-field { cursor: pointer; }
-    select.audit-field option { background: #111111; color: #f5f5f5; }
-
-    /* ── Audit Success Steps ────────────────────── */
-    .audit-step { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-    .step-dot {
-      width: 18px; height: 18px; border-radius: 50%; border: 2px solid #333; flex-shrink: 0;
-      transition: background 0.3s ease, border-color 0.3s ease;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .step-dot.step-complete { background: #00d4ff; border-color: #00d4ff; }
-    .step-dot.step-complete::after { content: "✓"; font-size: 11px; color: #000; }
+    /* ── (Audit form CSS removed — form now on separate app) ── */
 
     /* ── Tool Cards ─────────────────────────────── */
     .tool-card {
@@ -354,11 +334,7 @@
     }
     .powered-logo:hover { filter: grayscale(0%) opacity(0.65); }
 
-    /* ── Audit Checkmark SVG ────────────────────── */
-    .audit-checkmark { width: 64px; height: 64px; margin: 0 auto; }
-    .audit-checkmark circle { fill: none; stroke: #00d4ff; stroke-width: 2; stroke-dasharray: 166; stroke-dashoffset: 166; animation: checkStroke 0.6s ease forwards; }
-    .audit-checkmark path { fill: none; stroke: #00d4ff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 48; stroke-dashoffset: 48; animation: checkStroke 0.4s 0.4s ease forwards; }
-    @keyframes checkStroke { to { stroke-dashoffset: 0; } }
+    /* ── (Audit checkmark CSS removed) ── */
   </style>
 </head>
 <body>
@@ -531,161 +507,23 @@
   <div class="section-divider"></div>
 
   <!-- ═══════════════════════════════════════════════
-       SECTION 5 — FREE CONTENT AUDIT (LEAD CAPTURE)
+       SECTION 5 — FREE CONTENT AUDIT CTA
        ═══════════════════════════════════════════════ -->
-  <section class="relative noise px-6 py-20 md:py-32" id="free-audit" style="background:radial-gradient(ellipse 80% 60% at 50% 20%, rgba(0,212,255,0.05) 0%, transparent 60%), #080808;">
-    <div class="relative z-10 max-w-[1200px] mx-auto">
-      <!-- Section Header -->
-      <div class="text-center mb-14 fade-up">
+  <section class="relative noise px-6 py-24 md:py-36" id="free-audit" style="background:radial-gradient(ellipse 80% 60% at 50% 20%, rgba(0,212,255,0.06) 0%, transparent 60%), #080808;">
+    <div class="relative z-10 max-w-3xl mx-auto text-center">
+      <div class="fade-up">
         <p class="font-heading font-semibold uppercase mb-4" style="font-size:12px;letter-spacing:0.15em;color:#00d4ff;">FREE CONTENT AUDIT</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl mb-5" style="color:#f5f5f5;">Find Out Exactly What's Killing Your Content&nbsp;Growth</h2>
-        <p class="font-body mx-auto" style="font-size:16px;color:#888888;max-width:600px;line-height:1.7;">
-          Drop your LinkedIn URL below. Our AI analyzes your content, identifies your exact pain points, and sends you a personalized report — in under 10 minutes.
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl md:text-5xl mb-6" style="color:#f5f5f5;">Get Your Free Content&nbsp;Audit</h2>
+        <p class="font-body mx-auto" style="font-size:17px;color:#888888;max-width:520px;line-height:1.75;margin-bottom:36px;">
+          AI analyzes your content in under 10 minutes.<br>No calls. No fluff. Just a personalized report.
         </p>
-      </div>
-
-      <!-- Two-column grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 fade-up">
-
-        <!-- LEFT COLUMN — Benefits -->
-        <div>
-          <h3 class="font-heading font-semibold mb-6" style="font-size:20px;color:#f5f5f5;">What's Inside Your Free Audit</h3>
-          <div style="display:flex;flex-direction:column;gap:16px;">
-            <div style="display:flex;align-items:flex-start;gap:12px;">
-              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
-              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">Your 3 biggest content bottlenecks — backed by data from your actual posts</span>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:12px;">
-              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
-              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">The content gaps your competitors are exploiting right now</span>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:12px;">
-              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
-              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">Why your engagement doesn't match your reach — and the exact fix</span>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:12px;">
-              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
-              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">A 30-day content upscale roadmap tailored to your niche</span>
-            </div>
-            <div style="display:flex;align-items:flex-start;gap:12px;">
-              <span style="color:#00d4ff;font-size:16px;font-weight:700;line-height:1.6;flex-shrink:0;">✓</span>
-              <span class="font-body" style="font-size:15px;color:#888888;line-height:1.6;">What your fully automated content system would look like</span>
-            </div>
-          </div>
-
-          <!-- Sample Report Preview Card (hidden on mobile) -->
-          <div class="hidden md:block" style="background:rgba(0,212,255,0.03);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:20px;margin-top:32px;position:relative;">
-            <p style="font-size:10px;color:#00d4ff;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 8px 0;">SAMPLE REPORT PREVIEW</p>
-            <p class="font-heading font-semibold" style="font-size:14px;color:#f5f5f5;margin:0 0 12px 0;">CAFY CONTENT AUDIT</p>
-            <div style="filter:blur(4px);color:#555;font-size:12px;line-height:1.8;">
-              <p style="margin:0;">Content frequency analysis: 2.3 posts/week avg...</p>
-              <p style="margin:0;">Engagement rate benchmark: 1.8% vs industry 3.2%...</p>
-              <p style="margin:0;">Recommended topics: leadership, case studies...</p>
-            </div>
-            <div style="margin-top:14px;">
-              <p class="font-body" style="font-size:11px;color:#888888;margin:0 0 6px 0;">Content Gap Score</p>
-              <div style="height:8px;background:#1a1a1a;border-radius:4px;overflow:hidden;">
-                <div style="width:70%;height:100%;background:linear-gradient(90deg,#00d4ff,#00b8d9);border-radius:4px;"></div>
-              </div>
-            </div>
-            <span style="position:absolute;top:16px;right:16px;font-size:10px;color:#00d4ff;background:rgba(0,212,255,0.1);padding:3px 10px;border-radius:20px;">Example Only</span>
-          </div>
-        </div>
-
-        <!-- RIGHT COLUMN — The Form -->
-        <div>
-          <div id="audit-form-container" style="background:#111111;border:1px solid rgba(0,212,255,0.2);border-radius:16px;padding:36px;box-shadow:0 0 60px rgba(0,212,255,0.05);">
-            <form id="audit-form" novalidate>
-              <div style="display:flex;flex-direction:column;gap:20px;">
-                <!-- Name -->
-                <div>
-                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Full Name or Brand Name</label>
-                  <input type="text" name="audit-name" class="audit-field" placeholder="e.g. John Smith or Acme Agency" required />
-                </div>
-                <!-- LinkedIn -->
-                <div>
-                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">LinkedIn Profile or Page URL</label>
-                  <input type="url" name="audit-linkedin" class="audit-field" placeholder="https://linkedin.com/in/yourprofile" required />
-                  <p class="font-body" style="font-size:11px;color:#444444;margin-top:5px;">We only read public post data. We never store credentials.</p>
-                </div>
-                <!-- Niche -->
-                <div>
-                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Your Industry / Niche</label>
-                  <select name="audit-niche" class="audit-field" required>
-                    <option value="" disabled selected>Select your niche...</option>
-                    <option>Personal Brand / Creator</option>
-                    <option>Marketing &amp; Advertising Agency</option>
-                    <option>SaaS / Tech Company</option>
-                    <option>E-commerce / Product Brand</option>
-                    <option>Consulting / Coaching</option>
-                    <option>Real Estate</option>
-                    <option>Finance / Fintech</option>
-                    <option>Healthcare / Wellness</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <!-- Goal -->
-                <div>
-                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Primary Content Goal</label>
-                  <select name="audit-goal" class="audit-field" required>
-                    <option value="" disabled selected>Select a goal...</option>
-                    <option>Grow my audience and followers</option>
-                    <option>Generate more leads and clients</option>
-                    <option>Build authority in my niche</option>
-                    <option>Increase engagement on my posts</option>
-                    <option>Scale content without spending more time</option>
-                    <option>All of the above</option>
-                  </select>
-                </div>
-                <!-- Frustration -->
-                <div>
-                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Biggest Content Frustration Right Now</label>
-                  <textarea name="audit-frustration" class="audit-field" rows="4" required placeholder="e.g. I post consistently but nothing grows. Or: I never have time to create content every week..."></textarea>
-                </div>
-                <!-- Email -->
-                <div>
-                  <label class="font-body block" style="font-size:13px;color:#888888;margin-bottom:6px;font-weight:500;">Email Address</label>
-                  <input type="email" name="audit-email" class="audit-field" placeholder="your@email.com" required />
-                  <p class="font-body" style="font-size:11px;color:#444444;margin-top:5px;">Your report arrives within 10 minutes. No spam, ever.</p>
-                </div>
-              </div>
-              <!-- Submit -->
-              <button type="submit" class="font-heading font-bold w-full" style="height:52px;background:#00d4ff;color:#000000;font-size:15px;border-radius:8px;border:none;cursor:pointer;margin-top:28px;transition:background 0.2s ease,transform 0.2s ease;"
-                onmouseover="this.style.background='#00b8d9';this.style.transform='translateY(-1px)'"
-                onmouseout="this.style.background='#00d4ff';this.style.transform='translateY(0)'"
-                onfocus="this.style.outline='2px solid #00d4ff';this.style.outlineOffset='3px'"
-                onblur="this.style.outline='none'">
-                Analyze My Content → Get Free Report
-              </button>
-            </form>
-          </div>
-
-          <!-- Success State (hidden by default) -->
-          <div id="audit-success" style="display:none;text-align:center;padding:20px;">
-            <svg class="audit-checkmark" viewBox="0 0 52 52">
-              <circle cx="26" cy="26" r="25"/>
-              <path d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-            </svg>
-            <h3 class="font-heading" style="font-size:22px;color:#f5f5f5;font-weight:600;margin-top:20px;">Your audit is being generated!</h3>
-            <p class="font-body" style="font-size:15px;color:#888888;margin-top:12px;line-height:1.6;">
-              We're analyzing <strong id="audit-success-name" style="color:#f5f5f5;"></strong>'s content right now.<br>
-              Your personalized report will land in <strong id="audit-success-email" style="color:#00d4ff;"></strong> within the next 10 minutes.
-            </p>
-            <div style="margin-top:28px;text-align:left;max-width:320px;margin-inline:auto;">
-              <div class="audit-step"><span class="step-dot"></span><span class="step-text font-body" style="color:#444444;font-size:14px;">Fetching your content data</span></div>
-              <div class="audit-step"><span class="step-dot"></span><span class="step-text font-body" style="color:#444444;font-size:14px;">Analyzing posting patterns</span></div>
-              <div class="audit-step"><span class="step-dot"></span><span class="step-text font-body" style="color:#444444;font-size:14px;">Identifying content gaps</span></div>
-              <div class="audit-step"><span class="step-dot"></span><span class="step-text font-body" style="color:#444444;font-size:14px;">Building your 30-day roadmap</span></div>
-            </div>
-            <div id="audit-final-msg" style="display:none;margin-top:24px;">
-              <p class="font-body" style="font-size:14px;color:#888888;">Check your inbox! While you wait:</p>
-              <a href="#services" style="display:inline-block;margin-top:12px;padding:10px 24px;border:1px solid #00d4ff;color:#00d4ff;border-radius:8px;font-size:14px;text-decoration:none;transition:transform 0.2s ease,opacity 0.2s ease;"
-                 onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
-                See How We Build Systems →
-              </a>
-            </div>
-          </div>
-        </div>
+        <a href="https://cafy-audit-app.vercel.app/audit"
+           class="inline-block font-heading font-bold no-underline"
+           style="background:#00d4ff;color:#000000;font-size:16px;padding:16px 40px;border-radius:8px;transition:background 0.2s ease,transform 0.2s ease;"
+           onmouseover="this.style.background='#00b8d9';this.style.transform='translateY(-2px)'"
+           onmouseout="this.style.background='#00d4ff';this.style.transform='translateY(0)'">
+          Start Free Audit →
+        </a>
       </div>
 
       <!-- Trust signals -->
@@ -965,58 +803,7 @@
     })();
 
 
-    // ── Free Audit Form ─────────────────────────────
-    (function () {
-      const auditForm = document.getElementById('audit-form');
-      const auditFormContainer = document.getElementById('audit-form-container');
-      const auditSuccess = document.getElementById('audit-success');
-      const N8N_WEBHOOK_URL = "https://saadix.app.n8n.cloud/webhook/cafy-audit";
-
-      if (!auditForm) return;
-
-      auditForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const submitBtn = auditForm.querySelector('button[type="submit"]');
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Analyzing your content...";
-        submitBtn.style.background = "#00b8d9";
-
-        const payload = {
-          name: auditForm.querySelector('[name="audit-name"]').value,
-          profile_url: auditForm.querySelector('[name="audit-linkedin"]').value,
-          platform: "linkedin",
-          niche: auditForm.querySelector('[name="audit-niche"]').value,
-          content_goal: auditForm.querySelector('[name="audit-goal"]').value,
-          frustration: auditForm.querySelector('[name="audit-frustration"]').value,
-          email: auditForm.querySelector('[name="audit-email"]').value,
-          submitted_at: new Date().toISOString()
-        };
-
-        try {
-          if (N8N_WEBHOOK_URL) {
-            await fetch(N8N_WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-          }
-        } catch (err) { console.error("Webhook error:", err); }
-
-        auditFormContainer.style.display = "none";
-        auditSuccess.style.display = "block";
-
-        // Update dynamic text
-        document.getElementById('audit-success-name').textContent = payload.name;
-        document.getElementById('audit-success-email').textContent = payload.email;
-
-        // Animate steps
-        const steps = document.querySelectorAll('.audit-step');
-        const delays = [0, 2500, 5000, 7500];
-        steps.forEach((step, index) => {
-          setTimeout(() => {
-            step.querySelector('.step-dot').classList.add('step-complete');
-            step.querySelector('.step-text').style.color = "#f5f5f5";
-          }, delays[index]);
-        });
-        setTimeout(() => { document.getElementById('audit-final-msg').style.display = "block"; }, 9000);
-      });
-    })();
+    // ── (Audit form JS removed — form now lives at cafy-audit-app.vercel.app/audit) ──
 
 
     // ── The Stack — Render Tool Cards ────────────────
